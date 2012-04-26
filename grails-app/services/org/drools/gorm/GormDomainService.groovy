@@ -28,7 +28,9 @@ class GormDomainService {
     }
     
     def SessionInfo getNewSessionInfo(Environment env) {
-        return new SessionInfoDomain(env: env)
+        def si = new SessionInfoDomain(env: env)
+        si.env = env
+        si
     }
     
     // ProcessInstanceInfo --------------------------
@@ -46,6 +48,7 @@ class GormDomainService {
             processId: processInstance.getProcessId(), 
             startDate: new Date(),
             env: env)
+        pii.env = env
         pii.save(flush: true)
         return pii
     }
